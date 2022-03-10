@@ -7,7 +7,7 @@
   font-family: 'IBM Plex Sans Hebrew', sans-serif;
 }
 
-.game {
+.rps {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -16,7 +16,7 @@
 }
 
 
-.score {
+.scoreBoard {
   display: flex;
   width: 20vw;
   justify-content: space-evenly;
@@ -31,7 +31,7 @@ img:hover{
   transition: .25s ease-in-out;
 }
 
-.p-count, .c-count {
+.pCount, .cCount {
   text-align: center;
   font-size: 1.25rem;
 }
@@ -47,7 +47,7 @@ img:hover{
   font-weight: bold;
 }
 
-.movesleft{
+.left{
   position: relative;
   font-size: 2em;
   top: 1rem;

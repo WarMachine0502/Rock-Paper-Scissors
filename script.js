@@ -1,120 +1,97 @@
-const game = () => {
-    let playerScore = 0;
-    let computerScore = 0;
-    let moves = 0;
-
-    const playGame = () => {
-        const rockBtn = document.querySelector('.rock');
-        const paperBtn = document.querySelector('.paper');
-        const scissorBtn = document.querySelector('.scissor');
-        const playerOptions = [rockBtn, paperBtn, scissorBtn];
-        const computerOptions = ['rock', 'paper', 'scissors']
-
-
-        playerOptions.forEach(option => {
-            option.addEventListener('click', function () {
-
-                const movesLeft = document.querySelector('.movesleft');
-                moves++;
-                movesLeft.innerText = `Tries Left: ${5 - moves}`;
-
-
-                const choiceNumber = Math.floor(Math.random() * 3);
-                const computerChoice = computerOptions[choiceNumber];
-
-
-                winner(this.innerText, computerChoice)
-
-
-                if (moves == 5) {
-                    gameOver(playerOptions, movesLeft);
-                }
-            })
-        })
-
-    }
-
-
-    const winner = (player, computer) => {
+const rps = () => {
+    let pScore = 0;
+    let cScore = 0;
+    let tries = 0;
+    
+    const winner = (p, c) => {
         const result = document.querySelector('.result');
-        const playerScoreBoard = document.querySelector('.p-count');
-        const computerScoreBoard = document.querySelector('.c-count');
-        player = player.toLowerCase();
-        computer = computer.toLowerCase();
-        if (player === computer) {
+        const playerScoreBoard = document.querySelector('.pCount');
+        const computerScoreBoard = document.querySelector('.cCount');
+        p = p.toLowerCase();
+        c = c.toLowerCase();
+        if (p === c) {
             result.textContent = 'TIED!'
         }
-        else if (player == 'rock') {
-            if (computer == 'paper') {
+        else if (p == 'rock') {
+            if (c == 'paper') {
                 result.textContent = 'COMPUTER WINS!';
-                computerScore++;
-                computerScoreBoard.textContent = computerScore;
-
+                cScore++;
+                computerScoreBoard.textContent = cScore;
             } else {
                 result.textContent = 'USER WINS!'
-                playerScore++;
-                playerScoreBoard.textContent = playerScore;
+                pScore++;
+                playerScoreBoard.textContent = pScore;
             }
         }
-        else if (player == 'scissors') {
-            if (computer == 'rock') {
+        else if (p == 'scissors') {
+            if (c == 'rock') {
                 result.textContent = 'COMPUTER WINS!';
-                computerScore++;
-                computerScoreBoard.textContent = computerScore;
+                cScore++;
+                computerScoreBoard.textContent = cScore;
             } else {
                 result.textContent = 'USER WINS!';
-                playerScore++;
-                playerScoreBoard.textContent = playerScore;
+                pScore++;
+                playerScoreBoard.textContent = pScore;
             }
         }
-        else if (player == 'paper') {
-            if (computer == 'scissors') {
+        else if (p == 'paper') {
+            if (c == 'scissors') {
                 result.textContent = 'COMPUTER WINS!';
-                computerScore++;
-                computerScoreBoard.textContent = computerScore;
+                cScore++;
+                computerScoreBoard.textContent = cScore;
             } else {
                 result.textContent = 'USER WINS!';
-                playerScore++;
-                playerScoreBoard.textContent = playerScore;
+                pScore++;
+                playerScoreBoard.textContent = pScore;
             }
         }
     }
-
-
-    const gameOver = (playerOptions, movesLeft) => {
-
+    
+    const over = (pOptions, triesLeft) => {
         const result = document.querySelector('.result');
-        const reloadBtn = document.querySelector('.reload');
-        
-
-        playerOptions.forEach(option => {
+        const reload = document.querySelector('.reload');
+        pOptions.forEach(option => {
             option.style.display = 'none';
         })
-
-
-        movesLeft.style.display = 'none';
-
-        if (playerScore > computerScore) {
-            result.style.fontSize = '2rem';
+        triesLeft.style.display = 'none';
+        if (pScore > cScore) {
             result.innerText = 'USER WINS THE GAME!'
-
-        }
-        else if (playerScore < computerScore) {
             result.style.fontSize = '2rem';
+        }
+        else if (pScore < cScore) {
             result.innerText = 'COMPUTER WINS THE GAME!';
-
+            result.style.fontSize = '2rem';
         }
         else {
-            result.style.fontSize = '2rem';
             result.innerText = 'THE GAME IS TIED!';
-
+            result.style.fontSize = '2rem';
         }
-        reloadBtn.style.display = 'flex';
-        reloadBtn.addEventListener('click', () => {
+        reload.style.display = 'flex';
+        reload.addEventListener('click', () => {
             window.location.reload();
         })
     }
-    playGame();
-
+    
+    const start = () => {
+        const rock = document.querySelector('.rock');
+        const paper = document.querySelector('.paper');
+        const scissor = document.querySelector('.scissor');
+        const pOptions = [rock, paper, scissor];
+        const cOptions = ['rock', 'paper', 'scissors']
+        pOptions.forEach(option => {
+            option.addEventListener('click', function () {
+                const triesLeft = document.querySelector('.left');
+                tries++;
+                triesLeft.innerText = `Tries Left: ${5 - tries}`;
+                const choiceNumber = Math.floor(Math.random() * 3);
+                const computerChoice = cOptions[choiceNumber];
+                winner(this.innerText, computerChoice)
+                if (tries == 5) {
+                    over(pOptions, triesLeft);
+                }
+            })
+        })
+    }
+    start();
 }
-game();
+rps();
